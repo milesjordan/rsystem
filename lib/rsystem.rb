@@ -11,10 +11,11 @@ module RSystem
   	  puts "[#{Time.now}] Executing: #{command}" if options[:echo]
 
   	  # Remove custom options so we can pass the entire options hash to system()
-	  options.delete(:echo)
-	  options.delete(:raise_on_error)
+      sys_options = options.clone
+	    sys_options.delete(:echo)
+	    sys_options.delete(:raise_on_error)
 
-  	  ret = system(command, options)
+  	  ret = system(command, sys_options)
   	  if !ret and options[:raise_on_error]
   	  	raise FailedExecutionException, "[#{Time.now}] Error: The executed command returned a failure code."
   	  else
